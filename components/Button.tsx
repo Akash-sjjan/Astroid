@@ -1,6 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
-import styles from "../styles/global";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { TouchableRipple } from "react-native-paper";
 type Props = {
   title: string;
@@ -20,5 +19,13 @@ const Button = (props: Props) => {
     </TouchableRipple>
   );
 };
+
+const styles = StyleSheet.create({
+  buttonText: {
+    textAlign: "center",
+    color: "#fff",
+    fontWeight: "bold",
+  },
+});
 
 export default Button;

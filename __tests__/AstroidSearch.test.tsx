@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import { shallow } from "enzyme";
 import AstroidSearch from "../screens/AstroidSearch";
+import { TouchableOpacity } from "react-native";
 
 const mockStore = configureMockStore();
 const store = mockStore({});
@@ -23,7 +24,7 @@ describe("Users screen", () => {
     );
 
     it("should render a view", () => {
-      expect(wrapper.find(".AstroidSearch-wrapper")).toHaveLength(0);
+      expect(wrapper.find(TouchableOpacity)).toHaveLength(2);
     });
   });
 });

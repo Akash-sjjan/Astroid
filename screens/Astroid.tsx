@@ -1,7 +1,6 @@
 import React from "react";
+import { StyleSheet, View } from "react-native";
 import AstroidCard from "../components/AstroidCard";
-import { View } from "react-native";
-import styles from "../styles/global";
 import { connect } from "react-redux";
 import { Astroid } from "../types/types";
 import { Text } from "react-native-paper";
@@ -30,5 +29,14 @@ const AstroidView = (props: Props) => {
 };
 const mapStateToProps = (state: { astroidState: Astroid }) => ({
   astroid: state.astroidState,
+});
+
+const styles = StyleSheet.create({
+  layout: {
+    padding: 20,
+  },
+  text: {
+    paddingBottom: 10,
+  },
 });
 export default connect(mapStateToProps)(AstroidView);
