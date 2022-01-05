@@ -8,7 +8,9 @@ export const SearchAstroid =
     http
       .get(`${id}?api_key=${key}`)
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
+        console.log("::::::::::::::::::::::::::::::::::::");
+
         dispatch({ type: types.SET_LOADING, payload: false });
         dispatch({ type: types.SET_ASTROID, payload: res.data });
         navigation.navigate("Astroid");
@@ -35,10 +37,17 @@ export const StartRandomSearch =
             `https://api.nasa.gov/neo/rest/v1/neo/${randomAstroidId}?api_key=${key}`
           )
           .then((res) => {
+            console.log(res.data);
+            console.log("::::::::::::::::::::::::::::::::::::");
             dispatch({ type: types.SET_LOADING, payload: false });
             dispatch({ type: types.SET_ASTROID, payload: res.data });
+            navigation.navigate("Astroid");
+          })
+          .catch((err) => {
+            dispatch({ type: types.SET_LOADING, payload: false });
+            alert(`Enter a valid id \n${err} `);
+            console.log(err);
           });
-        navigation.navigate("Astroid");
       })
       .catch((err) => {
         dispatch({ type: types.SET_LOADING, payload: false });

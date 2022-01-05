@@ -1,6 +1,6 @@
 import * as types from "../actions/constants";
 import { Astroid, AstroidAction } from "../../types/types";
-const initialState = {
+const initialState: Astroid = {
   astroid: {
     name: "",
     is_potentially_hazardous_asteroid: "",

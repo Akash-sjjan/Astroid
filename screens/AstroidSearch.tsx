@@ -1,38 +1,43 @@
-import React, { useState } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import React, { FC, useState } from "react";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import Button from "../components/Button";
 import {
   SearchAstroid,
   StartRandomSearch,
 } from "../redux/actions/astroidAction";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { TextInput } from "react-native-paper";
-import * as types from "../redux/actions/constants";
 
-type Props = {
+interface Props {
   SearchAstroid: Function;
   StartRandomSearch: Function;
   navigation: {
     navigate: Function;
   };
-  loading: boolean;
-};
+}
 
-const AstroidSearch = (props: Props) => {
+const AstroidSearch: FC<Props> = ({
+  SearchAstroid,
+  StartRandomSearch,
+  navigation,
+}): JSX.Element => {
   const [id, setId] = useState("");
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (value: string) => {
     setId(value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log(id);
-    dispatch({ type: types.SET_LOADING, payload: true });
-    props.SearchAstroid(id, props.navigation);
+    setLoading(true);
+    await SearchAstroid(id, navigation);
+    setLoading(false);
   };
-  const handleRandom = () => {
-    dispatch({ type: types.SET_LOADING, payload: true });
-    props.StartRandomSearch(props.navigation);
+  const handleRandom = async () => {
+    setLoading(true);
+    await StartRandomSearch(navigation);
+    setLoading(false);
   };
 
   return (
@@ -44,7 +49,7 @@ const AstroidSearch = (props: Props) => {
         value={id}
         mode="outlined"
       />
-      {props.loading && <ActivityIndicator size={30} color="#e67e22" />}
+      {loading && <ActivityIndicator size={30} color="#e67e22" />}
 
       <Button
         style={{
@@ -65,10 +70,6 @@ const AstroidSearch = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: any) => ({
-  loading: state.astroidState.loading,
-});
-
 const styles = StyleSheet.create({
   layout: {
     padding: 20,
@@ -85,6 +86,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, { SearchAstroid, StartRandomSearch })(
+export default connect(null, { SearchAstroid, StartRandomSearch })(
   AstroidSearch
 );
